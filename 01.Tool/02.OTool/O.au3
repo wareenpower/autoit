@@ -72,7 +72,7 @@ Exit (0)
 	Function name			:	Copy_R_Program
 	Function description	:	Copy the R.exe to the path "C:\Windows\System32"
 	Author					:	Iveshu
-	Write time				:	2017-10-19 20:08:37
+	Write time				:	2019-2-14
 	Parameter liset			:
 								NA
 	Return value			:
@@ -111,7 +111,7 @@ EndFunc
 	Function name			:	Write_config_Templet
 	Function description	:	Write the config templet
 	Author					:	Iveshu
-	Write time				:	2017-10-19 20:06:15
+	Write time				:	2019-2-14
 	Parameter liset			:
 								NA
 	Return value			:
