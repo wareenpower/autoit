@@ -23,6 +23,7 @@
 ***备注：***
 
 1. 配置不区分大小写，以下执行方式都可以：o cOnfig， O config
+2. **可以配置已经明确打开方式的文件**，比如：word，ppt、excel等文件，如：***doc=E:\02.SVN\TDSQL\01.Doc\TDSQL自动化框架（TMS）需求规格说明书.docx***
 
 # 4. 使用说明
 
