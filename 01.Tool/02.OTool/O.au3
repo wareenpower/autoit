@@ -22,11 +22,11 @@ $ProName=""
 ;~ Check the number of the parameter that user input
 $ParaNumber = $CmdLine[0]
 If $ParaNumber = 0 Then
-	MsgBox(1, "Error", "Please input a directory name.")
+	MsgBox(0, "Error", "Please input a directory name.")
 	;~ Ruturn code : 11
 	Exit (11)
 ElseIf $ParaNumber > 1 Then
-	MsgBox(1, "Error", "You can only input one directory name.")
+	MsgBox(0, "Error", "You can only input one directory name.")
 	;~ Ruturn code : 12
 	Exit (12)
 EndIf
@@ -48,7 +48,7 @@ $Propath=IniRead(@SystemDir & "\" & $ConfigFilename, "Directory", $ProName, "")
 ;~ =====================================Check config============================================
 ;~ Check the program name configed in the config file
 If $Propath = "" Then
-	MsgBox(1, "Error", "Please input the right directory name.")
+	MsgBox(0, "Error", "Please input the right directory name.")
 	;~ Ruturn code : 21
 	Exit (21)
 EndIf
@@ -94,13 +94,13 @@ Func Copy_O_Program()
 		$CopyResult = FileCopy($RToolFile,$SysPath,1)
 
 		IF $CopyResult = 0 Then
-			MsgBox(1, "Error", "Install programe failed, info: copy file failed.")
+			MsgBox(0, "Error", "Install programe failed, info: copy file failed.")
 			Exit(-1)
 		EndIf
 
 		;~ write the config templet
 		Write_config_Templet($ConfigFile)
-		MsgBox(1, "Info", "Install programe success. Usage: win+r -> r DirName")
+		MsgBox(0, "Information", "Install programe success. Usage: win+r -> r DirName")
 		Exit(-1)
 
 	EndIf
@@ -123,7 +123,7 @@ Func Write_config_Templet($Configfile_path)
 	;~ Check the file alraedy exist
 	Local $hFileOpen = FileOpen($Configfile_path, 2)
     If $hFileOpen = -1 Then
-        MsgBox(1, "Wirte template Error", "An error occurred while writing the template config file.")
+        MsgBox(0, "Wirte template Error", "An error occurred while writing the template config file.")
         Return False
     EndIf
 
