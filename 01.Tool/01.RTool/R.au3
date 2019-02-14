@@ -10,8 +10,7 @@
 
 Global $ConfigFilename = "RToolConfig.ini"
 
-; Script Start - Add your code below here
-
+;~ Script Start - Add your code below here
 
 ;~ copy local program
 Copy_R_Program()
@@ -35,10 +34,16 @@ EndIf
 ;~ Read the parameter that user input
 $ProName=$CmdLine[1]
 
+;~ Config the ini file
+If $ProName = "config" Then
+	Run("notepad " & @SystemDir & "\" & $ConfigFilename)
+	;~ Ruturn code : 0
+	Exit (0)
+EndIf
+
 ;~ =====================================Read config=============================================
 ;~ Read the paragram parameter from the config file
-$Propath=IniRead($ConfigFilename, "Program", $ProName, "")
-
+$Propath=IniRead(@SystemDir & "\" & $ConfigFilename, "Program", $ProName, "")
 
 ;~ =====================================Check config============================================
 ;~ Check the program name configed in the config file
@@ -83,11 +88,6 @@ Func Copy_R_Program()
 	Local $RToolFile = @ScriptDir & "\R.exe"
 
 	Local $ConfigFile = @SystemDir & "\" & $ConfigFilename
-
-	MsgBox(1, "$ConfigFile", $ConfigFile)
-
-	Exit(-1)
-
 	;~ Check the R.exe program exist int the path "C:\Windows\System32"
 	;~ If R.exx does not exist in the path, copy the file to the path
 	IF FileExists($SysPath)=0 Then
@@ -95,15 +95,15 @@ Func Copy_R_Program()
 
 		IF $CopyResult = 0 Then
 			MsgBox(1, "Error", "Install programe failed, info: copy file failed.")
+			Exit(-1)
 		EndIf
 
 		;~ write the config templet
-		Write_config_Templet()
+		Write_config_Templet($ConfigFile)
+		MsgBox(1, "Info", "Install programe success. Usage: win+r -> r programe")
+		Exit(-1)
 
 	EndIf
-
-	Exit(-1)
-
 EndFunc
 
 
@@ -119,9 +119,26 @@ EndFunc
 	Modify history			:
 								NA
 #ce ----------------------------------------------------------------------------
-Func Write_config_Templet()
+Func Write_config_Templet($Configfile_path)
 	;~ Check the file alraedy exist
+	Local $hFileOpen = FileOpen($Configfile_path, 2)
+    If $hFileOpen = -1 Then
+        MsgBox(1, "Wirte template Error", "An error occurred while writing the template config file.")
+        Return False
+    EndIf
 
+    ; Write data to the file using the handle returned by FileOpen.
+    FileWrite($hFileOpen, ";; ============================================================================="& @CRLF)
+    FileWrite($hFileOpen, ";; Program Name config" & @CRLF)
+    FileWrite($hFileOpen, ";; Format:" & @CRLF)
+    FileWrite($hFileOpen, ";; 		ProgramName=Program Path"& @CRLF)
+	FileWrite($hFileOpen, ";; ============================================================================="& @CRLF)
+	FileWrite($hFileOpen, @CRLF)
+	FileWrite($hFileOpen, "[Program]"& @CRLF)
+	FileWrite($hFileOpen, "np=C:\Windows\System32\notepad.exe"& @CRLF)
+
+    ; Close the handle returned by FileOpen.
+    FileClose($hFileOpen)
 	;~ write the config templet
 
 EndFunc
